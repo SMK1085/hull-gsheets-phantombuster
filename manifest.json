@@ -10,7 +10,7 @@
   "description": "Hull Google Sheets for Phantombuster",
   "readme": "readme.md",
   "tabs": [],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "source": "gsheets-phantombuster",
   "logo": "logo.png",
   "picture": "picture.png",
@@ -32,8 +32,8 @@
     {
       "name": "auth_private_key_id",
       "type": "string",
-      "title": "Private Key",
-      "description": "The Private Key of your Service Account."
+      "title": "Private Key ID",
+      "description": "The Private Key ID of your Service Account."
     },
     {
       "name": "spreadsheet_id",
