@@ -1,6 +1,6 @@
 {
   "name": "hull-gsheets-phantombuster",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Google Sheets Exporter for Phantombuster automations",
   "main": "src/index.ts",
   "scripts": {

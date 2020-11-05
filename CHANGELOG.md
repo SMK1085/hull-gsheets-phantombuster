@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/SMK1085/hull-gsheets-phantombuster/compare/v1.0.0...v1.0.1) (2020-11-05)
+
+
+### Bug Fixes
+
+* **manifest.json:** fix incorrectly labeled setting for Private Key ID ([ca28720](https://github.com/SMK1085/hull-gsheets-phantombuster/commit/ca287200c98bfac3f71d2eb757bd479795f0cf3c))
+
 # 1.0.0 (2020-11-05)
 
 
