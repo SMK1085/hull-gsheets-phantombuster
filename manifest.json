@@ -1,0 +1,145 @@
+{
+  "name": "Google Sheets for Phantombuster [BETA]",
+  "tags": [
+    "outgoing",
+    "oneColumn",
+    "batch",
+    "batch-accounts",
+    "smart-notifier"
+  ],
+  "description": "Hull Google Sheets for Phantombuster",
+  "readme": "readme.md",
+  "tabs": [],
+  "version": "1.0.0",
+  "source": "gsheets-phantombuster",
+  "logo": "logo.png",
+  "picture": "picture.png",
+  "ui": false,
+  "settings": [],
+  "private_settings": [
+    {
+      "name": "auth_client_email",
+      "type": "string",
+      "title": "Client Email",
+      "description": "The Client Email of your Service Account. Invite the service account as Editor to your spreadsheet."
+    },
+    {
+      "name": "auth_private_key",
+      "type": "string",
+      "title": "Private Key",
+      "description": "The Private Key of your Service Account."
+    },
+    {
+      "name": "auth_private_key_id",
+      "type": "string",
+      "title": "Private Key",
+      "description": "The Private Key of your Service Account."
+    },
+    {
+      "name": "spreadsheet_id",
+      "type": "string",
+      "title": "Spreadsheet ID",
+      "description": "The identifier of your spreadsheet."
+    },
+    {
+      "name": "account_synchronized_segments",
+      "title": "Account Filter",
+      "description": "Send Hull Accounts when they are part of one of these segments.",
+      "type": "array",
+      "format": "accountSegment",
+      "default": []
+    },
+    {
+      "name": "account_range",
+      "type": "string",
+      "title": "Account Range",
+      "description": "The range in A1 notion for accounts in Google Sheets, e.g. `Sheet1!A:A`."
+    },
+    {
+      "name": "account_attribute",
+      "title": "Account Attribute",
+      "description": "Select the account attribute to send to Google Sheets.",
+      "type": "string",
+      "format": "accountTrait"
+    },
+    {
+      "name": "user_synchronized_segments",
+      "title": "User Filter",
+      "description": "Send Hull Users when they are part of one of these segments.",
+      "type": "array",
+      "format": "segment",
+      "default": []
+    },
+    {
+      "name": "user_range",
+      "type": "string",
+      "title": "User Range",
+      "description": "The range in A1 notion for users in Google Sheets, e.g. `Sheet1!A:A`."
+    },
+    {
+      "name": "user_attribute",
+      "title": "User Attribute",
+      "description": "Select the user attribute to send to Google Sheets.",
+      "type": "string",
+      "format": "userTrait"
+    }
+  ],
+  "json": [],
+  "schedules": [{
+    "url": "/status",
+    "type": "interval",
+    "value": "30"
+  }],
+  "subscriptions": [{
+    "url": "/smart-notifier",
+    "conditions": {
+      "channels": {
+        "only": ["user:update", "account:update"]
+      },
+      "segments": {
+        "account:update": [
+          "private_settings.account_synchronized_segments"
+        ],
+        "user:update": [
+          "private_settings.user_synchronized_segments"
+        ]
+      }
+    },
+    "channels": [{
+      "channel": "account:update",
+      "handler": "account_update"
+    }, {
+      "channel": "user:update",
+      "handler": "user_update"
+    }]
+  }],
+  "settings_sections": [{
+      "title": "Google Sheets",
+      "description": "Configure the parameters to authorize the Google Sheets API.",
+      "properties": [
+        "private_settings.auth_client_email",
+        "private_settings.auth_private_key",
+        "private_settings.auth_private_key_id",
+        "private_settings.spreadsheet_id"
+      ]
+    },
+    {
+      "title": "User Profiles",
+      "description": "Define which user profiles are synchronized.",
+      "properties": [
+        "private_settings.user_synchronized_segments",
+        "private_settings.user_range",
+        "private_settings.user_attribute"
+      ]
+    },
+    {
+      "title": "Account Profiles",
+      "description": "Define which accounts synchronized.",
+      "properties": [
+        "private_settings.account_synchronized_segments",
+        "private_settings.account_range",
+        "private_settings.account_attribute"
+      ]
+    }
+  ]
+}
