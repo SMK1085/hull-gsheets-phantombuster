@@ -4,6 +4,7 @@
   "description": "Google Sheets Exporter for Phantombuster automations",
   "main": "src/index.ts",
   "scripts": {
+    "postinstall": "npm run build",
     "build": "run-p --print-label build-src build-dts",
     "build--watch": "onchange 'src/**/*' --initial --kill --delay 1000  -- npm run build",
     "build-dts": "tsc --emitDeclarationOnly",
@@ -25,7 +26,7 @@
     "lint-markdown": "markdownlint --ignore coverage --ignore dist --ignore node_modules '**/*.md' '.**/**/*.md'",
     "ngrok": "ngrok http 8074 --subdomain=hull-gsheets-pb --region=eu",
     "ngrokfree": "ngrok http 8074",
-    "start": "pm2-runtime start ecosystem.config.js",
+    "start": "node dist/index.js",
     "start--dev": "NODE_ENV=development npm run start",
     "start--dev--watch": "NODE_ENV=development npm run start-src--watch",
     "start-src": "babel-node --extensions .js,.jsx,.ts,.tsx --require ./node_modules/dotenv/config ./src/index.ts",
@@ -39,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SMK1085/hull-gsheets-phantombuster.git"
+    "url": "git+https://github.com/hull/hull-gsheets-phantombuster.git"
   },
   "keywords": [
     "hull",
@@ -52,13 +53,13 @@
   ],
   "author": {
     "name": "Sven Maschek",
-    "url": "https://www.github.com/SMK1085"
+    "url": "https://www.github.com/hull"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SMK1085/hull-gsheets-phantombuster/issues"
+    "url": "https://github.com/hull/hull-gsheets-phantombuster/issues"
   },
-  "homepage": "https://github.com/SMK1085/hull-gsheets-phantombuster#readme",
+  "homepage": "https://github.com/hull/hull-gsheets-phantombuster#readme",
   "dependencies": {
     "awilix": "^4.2.6",
     "axios": "^0.19.2",
@@ -69,11 +70,9 @@
     "hull": "^0.13.20",
     "lodash": "^4.17.15",
     "luxon": "^1.24.1",
-    "pm2": "^4.4.0",
     "redis": "^3.0.2",
     "uuid": "^8.2.0",
-    "winston": "^3.2.1",
-    "winston-logzio": "^5.1.2"
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

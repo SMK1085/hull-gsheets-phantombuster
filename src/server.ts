@@ -6,7 +6,6 @@ import actions from "./actions";
 import _, { isNil } from "lodash";
 import { ClientOpts } from "redis";
 import { ConnectorRedisClient } from "./utils/v1/redis-client";
-import LogzioWinstonTransport from "winston-logzio";
 import { initializeScope } from "./middleware/express-scope";
 
 export const server = (app: Application): Application => {
@@ -24,22 +23,8 @@ export const server = (app: Application): Application => {
   };
   // Add console as transport since we don't use a dedicated transport
   // but rely on the OS to ship logs
-  if (!isNil(process.env.LOGZIO_TOKEN)) {
-    loggerOptions.transports = [
-      new LogzioWinstonTransport({
-        token: process.env.LOGZIO_TOKEN as string,
-        host: "listener.logz.io",
-        protocol: "https",
-        name: loggerOptions.defaultMeta.service,
-        level: process.env.LOG_LEVEL || "error",
-      }),
-    ];
-  } else {
-    loggerOptions.transports = [];
-  }
-
   if (process.env.NODE_ENV === "development") {
-    loggerOptions.transports.push(
+    loggerOptions.transports = [
       new transports.Console({
         format: format.combine(
           format.colorize({ all: true }),
@@ -67,8 +52,15 @@ export const server = (app: Application): Application => {
             }`;
           }),
         ),
-      }),
-    );
+      })
+    ];
+  } else {
+    loggerOptions.transports = [
+      new transports.Console({
+        level: "info",
+        format: format.combine(format.json())
+      })
+    ];
   }
 
   const globalLogger = createLogger(loggerOptions);

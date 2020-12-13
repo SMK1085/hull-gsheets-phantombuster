@@ -1,6 +1,6 @@
 # hull-gsheets-phantombuster
 
-![Node.js CI](https://github.com/SMK1085/hull-gsheets-phantombuster/workflows/Node.js%20CI/badge.svg)
+![Node.js CI](https://github.com/hull/hull-gsheets-phantombuster/workflows/Node.js%20CI/badge.svg)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Overview
@@ -38,8 +38,6 @@ To run a clustered version of the connector for production, use
 ```console
 npm run start
 ```
-
-This will use [PM2](https://pm2.keymetrics.io/) with the parameters specified in [ecosystem.config.js](./ecosystem.config.js). For more information about the Ecosystem File, see the [PM2 Documentation](https://pm2.keymetrics.io/docs/usage/application-declaration/#ecosystem-file).
 
 ## Contributing
 
